@@ -304,7 +304,7 @@
                     </image>
                     <clip>
                         <near>0.5</near>
-                        <far>20</far>
+                        <far>25</far>
                     </clip>
                     <!-- no distortions: "ideal" camera -->
                     <distortion>
