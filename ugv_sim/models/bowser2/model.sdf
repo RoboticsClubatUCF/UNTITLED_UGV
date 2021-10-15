@@ -412,7 +412,7 @@
                 </ray>
 
                 <!-- visualizing sensor rays can be resource intensive -->
-                <visualize>true</visualize>
+                <visualize>false</visualize>
                 
                 <plugin name="laser_plugin" filename="libgazebo_ros_velodyne_laser.so">
             		<topicName>/velodyne</topicName>

@@ -1,0 +1,3 @@
+[submodule "velodyne_simulator"]
+	path = velodyne_simulator
+	url = https://bitbucket.org/DataspeedInc/velodyne_simulator.git
