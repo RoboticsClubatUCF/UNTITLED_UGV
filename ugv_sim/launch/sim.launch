@@ -28,7 +28,7 @@
     <!-- use robot description to publish robot tf tree -->
     <!-- tf_prefix: robot tf transforms are prepended with bowser2 to match model.sdf plugin convention-->
     <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
-        <param name="tf_prefix" type="string" value="bowser2"/>
+        <param name="tf_prefix" type="string" value=""/>
     </node>
 
     <!-- publishes tf transforms between joints -->
