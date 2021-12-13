@@ -32,7 +32,7 @@
     </node>
 
     <!-- publishes tf transforms between joints -->
-    <!-- <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" /> -->
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
 
     <node pkg="robot_localization" type="ekf_localization_node" name="ekf_se" clear_params="true">
         <rosparam command="load" file="$(find ugv_sim)/config/robot_localization/ekf.yaml" />
