@@ -3,7 +3,7 @@
     <model name="bowser2">
         <pose>0 0 0 0 0 0</pose>
         <static>false</static>
-        <link name="bowser2/base_link">
+        <link name="base_link">
             <inertial>
                 <mass>10</mass>
                 <inertia> <!-- inertias are tricky to compute -->
@@ -63,7 +63,7 @@
             </visual>
         </link>
 
-        <link name="bowser2/front_right_wheel">
+        <link name="front_right_wheel">
             <pose>0.3 -.37 -0.05 0 0 0</pose>
             <inertial>
                 <mass>2.6357</mass>
@@ -110,9 +110,9 @@
                 </material>
             </visual>
         </link>
-        <joint name="bowser2/front_right_joint" type="revolute">
-            <parent>bowser2/base_link</parent>
-            <child>bowser2/front_right_wheel</child>
+        <joint name="front_right_joint" type="revolute">
+            <parent>base_link</parent>
+            <child>front_right_wheel</child>
             <axis>
                 <xyz>0 1 0</xyz>
                 <use_parent_model_frame>true</use_parent_model_frame>
@@ -127,7 +127,7 @@
             </physics>
         </joint>
 
-        <link name="bowser2/front_left_wheel">
+        <link name="front_left_wheel">
             <pose>0.3 .37 -0.05 0 0 0</pose>
             <inertial>
                 <mass>2.6357</mass>
@@ -174,9 +174,9 @@
                 </material>
             </visual>
         </link>
-        <joint name="bowser2/front_left_joint" type="revolute">
-            <parent>bowser2/base_link</parent>
-            <child>bowser2/front_left_wheel</child>
+        <joint name="front_left_joint" type="revolute">
+            <parent>base_link</parent>
+            <child>front_left_wheel</child>
             <axis>
                 <xyz>0 1 0</xyz>
                 <use_parent_model_frame>true</use_parent_model_frame>
@@ -192,7 +192,7 @@
         </joint>
 
         <!-- IMU sensor -->
-        <link name="bowser2/imu_link">
+        <link name="imu_link">
             <visual name="imu_link_visual">
                 <geometry>
                     <box>
@@ -219,11 +219,10 @@
                 </plugin>
             </sensor>
         </link>
-        <joint name="bowser2/imu_joint" type="fixed">
-            <parent>bowser2/base_link</parent>
-            <child>bowser2/imu_link</child>
+        <joint name="imu_joint" type="fixed">
+            <parent>base_link</parent>
+            <child>imu_link</child>
         </joint>
-
 
         <!-- differential drive plugin; publishes odom frame-->
         <plugin filename="libgazebo_ros_diff_drive.so" name="diff_drive_controller">
@@ -232,8 +231,8 @@
             <!-- <always_on>true</always_on> -->
 
             <!-- 'physical' characteristics -->
-            <leftJoint>bowser2/front_left_joint</leftJoint>
-            <rightJoint>bowser2/front_right_joint</rightJoint>
+            <leftJoint>front_left_joint</leftJoint>
+            <rightJoint>front_right_joint</rightJoint>
             <wheelSeparation>0.74</wheelSeparation>
             <wheelDiameter>0.3555</wheelDiameter>
             <wheelTorque>20</wheelTorque>   <!-- in Nm -->
@@ -244,9 +243,9 @@
             <updateRate>100</updateRate>
 
             <!-- tf -->
-            <publishTf>true</publishTf> <!-- publish the transforms -->
-            <publishOdomTF>true</publishOdomTF>
-            <publishWheelTF>true</publishWheelTF>
+            <publishTf>true</publishTf>             <!-- publish the transforms -->
+            <publishOdomTF>false</publishOdomTF>
+            <publishWheelTF>false</publishWheelTF>
             <odometryFrame>bowser2/odom</odometryFrame>
             <robotBaseFrame>bowser2/base_link</robotBaseFrame>
 
@@ -255,16 +254,16 @@
             <odometryTopic>odom</odometryTopic> <!-- publishes on -->
         </plugin>
 
-        <joint name="bowser2/camera_joint" type="fixed">
-            <parent>bowser2/base_link</parent>
-            <child>bowser2/camera_link</child>
+        <joint name="camera_joint" type="fixed">
+            <parent>base_link</parent>
+            <child>camera_link</child>
             <axis>
                 <xyz>1 0 0</xyz>
                 <use_parent_model_frame>true</use_parent_model_frame>
             </axis>
         </joint>
         <!-- houses the depth camera sensor -->
-        <link name="bowser2/camera_link">
+        <link name="camera_link">
             <!-- "physical" description of camera -->
             <!-- <pose>0.45 0 0.5 0 0 0</pose> -->
             <pose>0 0 0.35 0 0 0</pose>
@@ -337,7 +336,7 @@
                     <pointCloudTopicName>depth/points</pointCloudTopicName>
 
                     <!-- Set TF frame name. If empty, defaults to link name (i.e. "link_name") -->
-                    <frameName>bowser2/camera_link</frameName> <!-- namespaced -->
+                    <frameName>camera_link</frameName> <!-- namespaced -->
                     
                     <distortionK1>0.0</distortionK1>
                     <distortionK2>0.0</distortionK2>
@@ -348,15 +347,15 @@
             </sensor>
         </link>
 
-        <joint name="bowser2/lidar_joint" type="fixed">
-            <parent>bowser2/base_link</parent>
-            <child>bowser2/lidar_link</child>
+        <joint name="lidar_joint" type="fixed">
+            <parent>base_link</parent>
+            <child>lidar_link</child>
             <axis>
                 <xyz>0 1 0</xyz>
                 <use_parent_model_frame>true</use_parent_model_frame>
             </axis>
         </joint>
-        <link name="bowser2/lidar_link">
+        <link name="lidar_link">
             <!-- "physical" description of lidar -->
             <pose>0.0 0 0.2 0 0 0</pose>
             <collision name="lidar_collision">
@@ -416,7 +415,7 @@
                 
                 <plugin name="laser_plugin" filename="libgazebo_ros_velodyne_laser.so">
             		<topicName>/velodyne</topicName>
-            		<frameName>bowser2/lidar_link</frameName>
+            		<frameName>lidar_link</frameName>
             		<organize_cloud>false</organize_cloud>
             		<min_range>0.9</min_range>
             		<max_range>130</max_range>
