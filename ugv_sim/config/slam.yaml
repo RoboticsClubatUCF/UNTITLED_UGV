@@ -10,7 +10,7 @@ ceres_loss_function: None
 odom_frame: bowser2/odom
 map_frame: map
 base_frame: bowser2/base_link
-scan_topic: /scan
+scan_topic: /velodyne
 mode: mapping
 # mode: localization
 
